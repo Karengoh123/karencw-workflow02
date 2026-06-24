@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "vibe-stack-supabase",
-  description: "Next.js + Supabase starter",
+  title: "Careware Renewal Tracker",
+  description: "Maintenance renewal dashboard for Renewal and Accounts teams",
 };
 
 export default function RootLayout({
