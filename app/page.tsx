@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { addRenewal, deleteRenewal, editRenewal, markAsBilled } from "@/app/actions";
+import { addRenewal, editRenewal } from "@/app/actions";
+import { RecordActions } from "@/app/record-actions";
 import { createClient } from "@/lib/supabase/server";
 import {
   computeStatus,
@@ -234,25 +235,7 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
                         </td>
                         <td className="px-4 py-4 text-slate-600">{lastReminder}</td>
                         <td className="px-4 py-4">
-                          <div className="flex flex-wrap gap-2">
-                            <Link className="button-small" href={`/?edit=${record.id}`}>
-                              Edit
-                            </Link>
-                            <form action={markAsBilled}>
-                              <input type="hidden" name="id" value={record.id} />
-                              <input type="hidden" name="company_name" value={record.company_name} />
-                              <button className="button-small" disabled={status === "billed"} type="submit">
-                                Mark Billed
-                              </button>
-                            </form>
-                            <form action={deleteRenewal}>
-                              <input type="hidden" name="id" value={record.id} />
-                              <input type="hidden" name="company_name" value={record.company_name} />
-                              <button className="button-danger" type="submit">
-                                Delete
-                              </button>
-                            </form>
-                          </div>
+                          <RecordActions id={record.id} companyName={record.company_name} isBilled={status === "billed"} />
                         </td>
                       </tr>
                     );
@@ -266,4 +249,3 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
     </main>
   );
 }
-
